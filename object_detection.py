@@ -2,6 +2,7 @@ import cv2
 # importing mediapipe and reference it as mp
 import mediapipe as mp
 import time
+
 # setting up the mediapipe 3D object detection
 mp_objectron = mp.solutions.objectron
 # setting-up the drawing utility 
@@ -10,6 +11,7 @@ mp_drawing = mp.solutions.drawing_utils
 cap = cv2.VideoCapture(0)
 # objectron is the 3D object detection and various of its ML performance parameters # need to be defined. # we also specify the objectron only detect one object namely a ‘Cup’ 
 # this can be changed to detect another object or multiple objects
+
 with mp_objectron.Objectron(static_image_mode=False, max_num_objects=2, min_detection_confidence=0.5, min_tracking_confidence=0.8, model_name='Cup') as objectron: 
     while cap.isOpened():
     
