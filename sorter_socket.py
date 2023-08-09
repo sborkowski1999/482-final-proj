@@ -15,7 +15,7 @@ def send_data(data):
     s.close()
 
 # Example usage:
-send_data("CAN")
-send_data("MILK")
-send_data("GLASS")
-send_data("PET")
+send_data("O")
+send_data("R")
+send_data("O")
+send_data("R")

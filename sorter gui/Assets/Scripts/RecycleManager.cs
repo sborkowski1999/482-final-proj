@@ -146,10 +146,10 @@ public class RecycleManager : MonoBehaviour
 {
     switch (objectType)
     {
-        case "CAN":
+        case "O":
             objectToSpawn = 0;
             break;
-        case "GLASS":
+        case "R":
             objectToSpawn = 1;
             break;
         case "MILK":
