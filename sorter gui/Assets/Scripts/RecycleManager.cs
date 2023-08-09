@@ -16,10 +16,8 @@ public class RecycleManager : MonoBehaviour
     public static readonly int PORT = 1755;
     public static readonly int WAITTIME = 1;
 
-    public GameObject canPrefab;   // Assign the CAN prefab in the Inspector
-    public GameObject glassPrefab; // Assign the GLASS prefab in the Inspector
-    public GameObject milkPrefab;  // Assign the MILK prefab in the Inspector
-    public GameObject petPrefab;   // Assign the PET prefab in the Inspector
+    public GameObject orgPrefab;   // Assign the CAN prefab in the Inspector
+    public GameObject recPrefab; // Assign the GLASS prefab in the Inspector
     private int objectToSpawn = -1; // Initialize with an invalid value
 
 
@@ -38,24 +36,17 @@ public class RecycleManager : MonoBehaviour
     {
         
         GameObject prefabToSpawn = null;
-        Vector3 spawnPosition = new Vector3(0f, 0f, 0f);;
+        Vector3 spawnPosition = new Vector3(0f, 0f, 0f);
+        Quaternion spawnRotation = Quaternion.identity;
         switch (objectToSpawn)
         {
             case 0:
-                spawnPosition = new Vector3(-1f, 15f, 0f); // Change the spawn position as needed
-                prefabToSpawn = canPrefab;
+                spawnPosition = new Vector3(50f, 15f, 25f); // Change the spawn position as needed
+                prefabToSpawn = orgPrefab;
                 break;
             case 1:
-                spawnPosition = new Vector3(34.3f, 14.3f, 0f);
-                prefabToSpawn = glassPrefab;
-                break;
-            case 2:
-                spawnPosition = new Vector3(62f, 15f, 0f);
-                prefabToSpawn = milkPrefab;
-                break;
-            case 3:
-                spawnPosition = new Vector3(38.5f, 15f, 0f);
-                prefabToSpawn = petPrefab;
+                spawnPosition = new Vector3(30f, 15f, 25f);
+                prefabToSpawn = recPrefab;
                 break;
             default:
                 break;
@@ -63,7 +54,8 @@ public class RecycleManager : MonoBehaviour
 
         if (prefabToSpawn != null)
         {
-            Instantiate(prefabToSpawn, spawnPosition, Quaternion.identity);
+            spawnRotation = Quaternion.Euler(UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f));
+            Instantiate(prefabToSpawn, spawnPosition, spawnRotation);
         }
 
         objectToSpawn = -1; // Reset the flag
@@ -146,17 +138,11 @@ public class RecycleManager : MonoBehaviour
 {
     switch (objectType)
     {
-        case "O":
+        case "ORGA":
             objectToSpawn = 0;
             break;
-        case "R":
+        case "RECY":
             objectToSpawn = 1;
-            break;
-        case "MILK":
-            objectToSpawn = 2;
-            break;
-        case "PET":
-            objectToSpawn = 3;
             break;
         default:
             Debug.LogWarning("Unknown object type received: " + objectType);
