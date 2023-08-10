@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
-
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
+using TMPro;
 public class RecycleManager : MonoBehaviour
 {
     static Socket listener;
@@ -19,6 +21,15 @@ public class RecycleManager : MonoBehaviour
     public GameObject orgPrefab;   // Assign the CAN prefab in the Inspector
     public GameObject recPrefab; // Assign the GLASS prefab in the Inspector
     private int objectToSpawn = -1; // Initialize with an invalid value
+
+    private int organicCount = 0;
+    private int recycleCount = 0;
+    private int totalCount = 0;
+
+    //used for update the float text in the game
+    public TextMeshProUGUI organicText;
+    public TextMeshProUGUI recycleText;
+    public TextMeshProUGUI totalText;
 
 
     // Start is called before the first frame update
@@ -43,10 +54,14 @@ public class RecycleManager : MonoBehaviour
             case 0:
                 spawnPosition = new Vector3(50f, 15f, 25f); // Change the spawn position as needed
                 prefabToSpawn = orgPrefab;
+                organicCount++;
+                organicText.text = organicCount.ToString();
                 break;
             case 1:
                 spawnPosition = new Vector3(30f, 15f, 25f);
                 prefabToSpawn = recPrefab;
+                recycleCount++;
+                recycleText.text = recycleCount.ToString();
                 break;
             default:
                 break;
@@ -54,6 +69,8 @@ public class RecycleManager : MonoBehaviour
 
         if (prefabToSpawn != null)
         {
+            totalCount = organicCount + recycleCount;
+            totalText.text = totalCount.ToString();
             spawnRotation = Quaternion.Euler(UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f), UnityEngine.Random.Range(0f, 360f));
             Instantiate(prefabToSpawn, spawnPosition, spawnRotation);
         }
